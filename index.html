@@ -277,9 +277,9 @@
             position: absolute;
             inset: 0;
             background:
-                radial-gradient(circle at 35% 30%, rgba(30, 30, 35, 0.8) 0%, transparent 50%),
-                radial-gradient(circle at 85% 70%, rgba(25, 25, 30, 0.8) 0%, transparent 50%),
-                radial-gradient(circle at 68% 58%, rgba(20, 25, 30, 0.9) 0%, transparent 70%),
+                radial-gradient(circle at 17% 22%, rgba(30, 30, 35, 0.8) 0%, transparent 50%),
+                radial-gradient(circle at 67% 62%, rgba(25, 25, 30, 0.8) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(20, 25, 30, 0.9) 0%, transparent 70%),
                 linear-gradient(135deg, #0a0a0f 0%, #15151a 50%, #0a0a0f 100%);
         }
 
@@ -288,7 +288,7 @@
             position: absolute;
             inset: 0;
             background:
-                radial-gradient(ellipse at 68% 58%, transparent 30%, rgba(10, 10, 10, 0.6) 100%),
+                radial-gradient(ellipse at 50% 50%, transparent 30%, rgba(10, 10, 10, 0.6) 100%),
                 linear-gradient(to bottom, rgba(10, 10, 10, 0.3) 0%, transparent 20%, transparent 80%, rgba(10, 10, 10, 0.5) 100%);
             pointer-events: none;
         }
@@ -308,19 +308,19 @@
             background:
                 /* Main horizontal roads - LA east-west streets */
                 linear-gradient(to bottom,
-                    transparent 22%, rgba(255,255,255,0.06) 22.3%, transparent 22.6%,  /* Santa Monica Blvd */
-                    transparent 38%, rgba(255,255,255,0.05) 38.3%, transparent 38.6%,  /* Melrose Ave */
-                    transparent 52%, rgba(255,255,255,0.08) 52.3%, transparent 52.6%,  /* Beverly Blvd */
-                    transparent 72%, rgba(255,255,255,0.06) 72.3%, transparent 72.6%,  /* Wilshire Blvd */
-                    transparent 85%, rgba(255,255,255,0.05) 85.3%, transparent 85.6%   /* Olympic Blvd */
+                    transparent 14%, rgba(255,255,255,0.06) 14.3%, transparent 14.6%,  /* Santa Monica Blvd */
+                    transparent 30%, rgba(255,255,255,0.05) 30.3%, transparent 30.6%,  /* Melrose Ave */
+                    transparent 44%, rgba(255,255,255,0.08) 44.3%, transparent 44.6%,  /* Beverly Blvd */
+                    transparent 64%, rgba(255,255,255,0.06) 64.3%, transparent 64.6%,  /* Wilshire Blvd */
+                    transparent 77%, rgba(255,255,255,0.05) 77.3%, transparent 77.6%   /* Olympic Blvd */
                 ),
                 /* Main vertical roads - LA north-south streets */
                 linear-gradient(to right,
-                    transparent 12%, rgba(255,255,255,0.03) 12.3%, transparent 12.6%,  /* Alvarado St */
-                    transparent 35%, rgba(255,255,255,0.04) 35.3%, transparent 35.6%,  /* Vermont Ave */
-                    transparent 52%, rgba(255,255,255,0.05) 52.3%, transparent 52.6%,  /* Western Ave */
-                    transparent 68%, rgba(255,255,255,0.06) 68.3%, transparent 68.6%,  /* Normandie Ave */
-                    transparent 85%, rgba(255,255,255,0.05) 85.3%, transparent 85.6%   /* Hoover St */
+                    transparent 0%, rgba(255,255,255,0.03) 0.3%, transparent 0.6%,  /* Alvarado St */
+                    transparent 17%, rgba(255,255,255,0.04) 17.3%, transparent 17.6%,  /* Vermont Ave */
+                    transparent 34%, rgba(255,255,255,0.05) 34.3%, transparent 34.6%,  /* Western Ave */
+                    transparent 50%, rgba(255,255,255,0.06) 50.3%, transparent 50.6%,  /* Normandie Ave */
+                    transparent 67%, rgba(255,255,255,0.05) 67.3%, transparent 67.6%   /* Hoover St */
                 );
         }
 
@@ -334,10 +334,10 @@
         .street-diagonal::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: -50%;
-            right: -50%;
-            bottom: 0;
+            top: -8%;
+            left: -68%;
+            right: -32%;
+            bottom: 8%;
             background:
                 /* Sunset Boulevard - main diagonal through Hollywood/Echo Park */
                 linear-gradient(160deg,
@@ -352,8 +352,8 @@
         /* 101 Freeway - curves through Hollywood/Echo Park */
         .street-highway {
             position: absolute;
-            top: 25%;
-            left: 10%;
+            top: 17%;
+            left: -8%;
             width: 110%;
             height: 70%;
             border: 3px solid rgba(255,255,255,0.12);
@@ -367,8 +367,8 @@
         /* I-10 Freeway - runs east-west through DTLA area */
         .street-highway-2 {
             position: absolute;
-            top: 78%;
-            left: 25%;
+            top: 70%;
+            left: 7%;
             width: 85%;
             height: 25%;
             border: 3px solid rgba(255,255,255,0.1);
@@ -396,13 +396,13 @@
             white-space: nowrap;
         }
 
-        .neighborhood.silver-lake { top: 18%; left: 55%; }
-        .neighborhood.echo-park { top: 32%; left: 38%; }
-        .neighborhood.dtla { top: 55%; left: 65%; }
-        .neighborhood.los-feliz { top: 12%; left: 42%; }
-        .neighborhood.koreatown { top: 48%; left: 35%; }
-        .neighborhood.hollywood { top: 22%; left: 25%; }
-        .neighborhood.weho { top: 35%; left: 18%; }
+        .neighborhood.silver-lake { top: 10%; left: 37%; }
+        .neighborhood.echo-park { top: 24%; left: 20%; }
+        .neighborhood.dtla { top: 47%; left: 47%; }
+        .neighborhood.los-feliz { top: 4%; left: 24%; }
+        .neighborhood.koreatown { top: 40%; left: 17%; }
+        .neighborhood.hollywood { top: 14%; left: 7%; }
+        .neighborhood.weho { top: 27%; left: 0%; }
 
         /* ======================== */
         /* FLOATING PINS            */
