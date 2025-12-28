@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Circles - LA Map Component</title>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --coral: #FF6B6B;
+      --coral-dark: #E85555;
+      --bg-dark: #0A0A0A;
+      --card-bg: #1A1A1A;
+      --card-border: #2A2A2A;
+      --text-primary: #FFFFFF;
+      --text-secondary: #999999;
+      --purple: #A855F7;
+      --teal: #2DD4BF;
+      --yellow: #FBBF24;
+      --pink: #F472B6;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: var(--bg-dark);
+      font-family: 'Outfit', sans-serif;
+      color: var(--text-primary);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 20px;
+    }
+
+    .section-intro {
+      text-align: center;
+      margin-bottom: 32px;
+      max-width: 600px;
+    }
+
+    .section-intro h2 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: var(--text-secondary);
+    }
+
+    .section-intro p {
+      color: var(--text-secondary);
+      font-size: 0.875rem;
+    }
+
+    /* ======================== */
+    /* MAP CONTAINER            */
+    /* ======================== */
+    .map-section {
+      width: 100%;
+      max-width: 1000px;
+      height: 500px;
+      border-radius: 24px;
+      overflow: hidden;
+      position: relative;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+      border: 1px solid var(--card-border);
+    }
+
+    /* Dark mode map tiles from Stadia Maps (free, no API key needed for low usage) */
+    .map-background {
+      position: absolute;
+      inset: 0;
+      background: 
+        url('https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/12/702/1636.png') 0 0,
+        url('https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/12/703/1636.png') 256px 0,
+        url('https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/12/704/1636.png') 512px 0,
+        url('https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/12/705/1636.png') 768px 0,
+        url('https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/12/702/1637.png') 0 256px,
+        url('https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/12/703/1637.png') 256px 256px,
+        url('https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/12/704/1637.png') 512px 256px,
+        url('https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/12/705/1637.png') 768px 256px;
+      background-size: 256px 256px;
+      filter: brightness(0.7) contrast(1.1);
+      transform: scale(1.1);
+    }
+
+    /* Gradient overlays for polish */
+    .map-overlay {
+      position: absolute;
+      inset: 0;
+      background: 
+        radial-gradient(ellipse at center, transparent 30%, rgba(10, 10, 10, 0.6) 100%),
+        linear-gradient(to bottom, rgba(10, 10, 10, 0.3) 0%, transparent 20%, transparent 80%, rgba(10, 10, 10, 0.5) 100%);
+      pointer-events: none;
+    }
+
+    /* Wispy street grid lines */
+    .street-grid {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .street-grid::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: 
+        /* Main horizontal roads */
+        linear-gradient(to bottom, 
+          transparent 18%, rgba(255,255,255,0.04) 18.5%, transparent 19%,
+          transparent 35%, rgba(255,255,255,0.03) 35.5%, transparent 36%,
+          transparent 52%, rgba(255,255,255,0.05) 52.5%, transparent 53%,
+          transparent 68%, rgba(255,255,255,0.03) 68.5%, transparent 69%,
+          transparent 82%, rgba(255,255,255,0.04) 82.5%, transparent 83%
+        ),
+        /* Main vertical roads */
+        linear-gradient(to right, 
+          transparent 15%, rgba(255,255,255,0.03) 15.5%, transparent 16%,
+          transparent 32%, rgba(255,255,255,0.04) 32.5%, transparent 33%,
+          transparent 48%, rgba(255,255,255,0.05) 48.5%, transparent 49%,
+          transparent 65%, rgba(255,255,255,0.04) 65.5%, transparent 66%,
+          transparent 80%, rgba(255,255,255,0.03) 80.5%, transparent 81%
+        );
+    }
+
+    /* Diagonal roads (like Sunset Blvd feel) */
+    .street-diagonal {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+
+    .street-diagonal::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -50%;
+      right: -50%;
+      bottom: 0;
+      background: 
+        linear-gradient(155deg, 
+          transparent 30%, rgba(255,255,255,0.025) 30.3%, transparent 30.6%,
+          transparent 45%, rgba(255,255,255,0.03) 45.3%, transparent 45.6%,
+          transparent 62%, rgba(255,255,255,0.025) 62.3%, transparent 62.6%
+        ),
+        linear-gradient(25deg, 
+          transparent 40%, rgba(255,255,255,0.02) 40.3%, transparent 40.6%,
+          transparent 58%, rgba(255,255,255,0.025) 58.3%, transparent 58.6%
+        );
+    }
+
+    /* Curved road effect (like a highway/freeway) */
+    .street-highway {
+      position: absolute;
+      top: 40%;
+      left: -10%;
+      width: 120%;
+      height: 60%;
+      border: 2px solid rgba(255,255,255,0.1);
+      border-radius: 50% 50% 0 0;
+      border-bottom: none;
+      transform: rotate(-8deg);
+      pointer-events: none;
+      box-shadow: 0 0 8px rgba(255,255,255,0.03);
+    }
+
+    .street-highway-2 {
+      position: absolute;
+      top: 55%;
+      left: 20%;
+      width: 80%;
+      height: 40%;
+      border: 2px solid rgba(255,255,255,0.08);
+      border-radius: 0 0 50% 50%;
+      border-top: none;
+      transform: rotate(5deg);
+      pointer-events: none;
+      box-shadow: 0 0 8px rgba(255,255,255,0.03);
+    }
+
+    /* Neighborhood labels floating on map */
+    .neighborhood-labels {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+
+    .neighborhood {
+      position: absolute;
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: rgba(255, 255, 255, 0.25);
+      white-space: nowrap;
+    }
+
+    .neighborhood.silver-lake { top: 18%; left: 55%; }
+    .neighborhood.echo-park { top: 32%; left: 38%; }
+    .neighborhood.dtla { top: 55%; left: 65%; }
+    .neighborhood.los-feliz { top: 12%; left: 42%; }
+    .neighborhood.koreatown { top: 48%; left: 35%; }
+    .neighborhood.hollywood { top: 22%; left: 25%; }
+    .neighborhood.weho { top: 35%; left: 18%; }
+
+    /* ======================== */
+    /* FLOATING PINS            */
+    /* ======================== */
+    .map-pin {
+      position: absolute;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      z-index: 10;
+      cursor: pointer;
+      transition: z-index 0s;
+    }
+
+    .map-pin:hover {
+      z-index: 100;
+    }
+
+    .map-pin:hover .pin-bubble {
+      transform: scale(1.05);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
+    }
+
+    /* Float animation */
+    .map-pin { animation: float 4s ease-in-out infinite; }
+    .map-pin:nth-child(1) { animation-delay: 0s; }
+    .map-pin:nth-child(2) { animation-delay: 0.7s; }
+    .map-pin:nth-child(3) { animation-delay: 1.4s; }
+    .map-pin:nth-child(4) { animation-delay: 2.1s; }
+    .map-pin:nth-child(5) { animation-delay: 2.8s; }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-6px); }
+    }
+
+    /* Pin bubble card */
+    .pin-bubble {
+      background: var(--card-bg);
+      border-radius: 16px;
+      padding: 12px 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+      border: 1px solid var(--card-border);
+      white-space: nowrap;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .pin-emoji {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+
+    .pin-emoji.coral { background: linear-gradient(135deg, var(--coral), var(--coral-dark)); }
+    .pin-emoji.purple { background: linear-gradient(135deg, var(--purple), #C084FC); }
+    .pin-emoji.teal { background: linear-gradient(135deg, var(--teal), #5EEAD4); }
+    .pin-emoji.yellow { background: linear-gradient(135deg, var(--yellow), #FCD34D); }
+    .pin-emoji.pink { background: linear-gradient(135deg, var(--pink), #F9A8D4); }
+
+    .pin-info {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .pin-title {
+      font-weight: 600;
+      font-size: 0.85rem;
+      color: var(--text-primary);
+    }
+
+    .pin-meta {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.7rem;
+      color: var(--text-secondary);
+    }
+
+    .pin-location {
+      display: flex;
+      align-items: center;
+      gap: 3px;
+    }
+
+    .pin-location::before {
+      content: '📍';
+      font-size: 0.6rem;
+    }
+
+    .pin-distance {
+      color: var(--coral);
+      font-weight: 500;
+    }
+
+    /* Avatar stack */
+    .pin-avatars {
+      display: flex;
+      margin-left: 4px;
+    }
+
+    .mini-avatar {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      margin-left: -6px;
+      border: 2px solid var(--card-bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.55rem;
+      font-weight: 600;
+      color: white;
+    }
+
+    .mini-avatar:first-child { margin-left: 0; }
+    .mini-avatar.coral { background: linear-gradient(135deg, var(--coral), var(--coral-dark)); }
+    .mini-avatar.purple { background: linear-gradient(135deg, var(--purple), #C084FC); }
+    .mini-avatar.teal { background: linear-gradient(135deg, var(--teal), #5EEAD4); }
+    .mini-avatar.yellow { background: linear-gradient(135deg, var(--yellow), #FCD34D); }
+    .mini-avatar.pink { background: linear-gradient(135deg, var(--pink), #F9A8D4); }
+    .mini-avatar.gray { background: #444; }
+
+    /* Stem and pulsing dot */
+    .pin-stem {
+      width: 2px;
+      height: 16px;
+      background: linear-gradient(to bottom, var(--card-border), transparent);
+    }
+
+    .pin-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--coral);
+      box-shadow: 0 0 12px var(--coral), 0 0 24px rgba(255, 107, 107, 0.4);
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    .map-pin:nth-child(1) .pin-dot { animation-delay: 0s; }
+    .map-pin:nth-child(2) .pin-dot { animation-delay: 0.4s; }
+    .map-pin:nth-child(3) .pin-dot { animation-delay: 0.8s; }
+    .map-pin:nth-child(4) .pin-dot { animation-delay: 1.2s; }
+    .map-pin:nth-child(5) .pin-dot { animation-delay: 1.6s; }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.4); opacity: 0.7; }
+    }
+
+    /* Pin positions - mapped to actual LA geography */
+    /* Map is roughly centered on Echo Park area */
+    /* West = left, East = right, North = top, South = bottom */
+    
+    .pin-1 { top: 18%; left: 68%; }    /* Silver Lake - northeast */
+    .pin-2 { top: 30%; left: 42%; }    /* Echo Park - center-north */
+    .pin-3 { top: 55%; left: 25%; }    /* Koreatown - southwest */
+    .pin-4 { top: 12%; left: 35%; }    /* Los Feliz - northwest */
+    .pin-5 { top: 70%; left: 70%; }    /* DTLA - southeast */
+
+    /* Current location dot */
+    .current-location {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 50;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .current-dot {
+      width: 16px;
+      height: 16px;
+      background: #4A90D9;
+      border-radius: 50%;
+      border: 3px solid white;
+      box-shadow: 0 0 0 3px rgba(74, 144, 217, 0.3), 0 0 20px rgba(74, 144, 217, 0.5);
+      animation: currentPulse 2s ease-in-out infinite;
+    }
+
+    .current-ring {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 40px;
+      height: 40px;
+      border: 2px solid rgba(74, 144, 217, 0.4);
+      border-radius: 50%;
+      animation: ringExpand 2s ease-out infinite;
+    }
+
+    .current-label {
+      font-size: 0.6rem;
+      font-weight: 600;
+      color: white;
+      background: rgba(74, 144, 217, 0.9);
+      padding: 3px 8px;
+      border-radius: 10px;
+      white-space: nowrap;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    @keyframes currentPulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    }
+
+    @keyframes ringExpand {
+      0% { width: 16px; height: 16px; opacity: 1; }
+      100% { width: 60px; height: 60px; opacity: 0; }
+    }
+
+    /* ======================== */
+    /* RESPONSIVE               */
+    /* ======================== */
+    @media (max-width: 768px) {
+      .map-section {
+        height: 450px;
+        border-radius: 16px;
+      }
+
+      .pin-bubble {
+        padding: 10px 12px;
+        gap: 8px;
+      }
+
+      .pin-emoji {
+        width: 32px;
+        height: 32px;
+        font-size: 1rem;
+      }
+
+      .pin-title {
+        font-size: 0.8rem;
+      }
+
+      .pin-meta {
+        font-size: 0.65rem;
+      }
+
+      .mini-avatar {
+        width: 18px;
+        height: 18px;
+        margin-left: -5px;
+      }
+
+      .pin-1 { top: 15%; left: 60%; }    /* Silver Lake */
+      .pin-2 { top: 28%; left: 35%; }    /* Echo Park */
+      .pin-3 { top: 55%; left: 10%; }    /* Koreatown */
+      .pin-4 { top: 8%; left: 25%; }     /* Los Feliz */
+      .pin-5 { top: 72%; left: 55%; }    /* DTLA */
+
+      .neighborhood {
+        font-size: 0.55rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .map-section {
+        height: 400px;
+      }
+
+      .pin-avatars {
+        display: none;
+      }
+
+      .pin-bubble {
+        padding: 8px 10px;
+      }
+    }
+
+    /* ======================== */
+    /* CODE PREVIEW BOX         */
+    /* ======================== */
+    .code-note {
+      margin-top: 40px;
+      max-width: 800px;
+      background: #111;
+      border: 1px solid #333;
+      border-radius: 12px;
+      padding: 24px;
+    }
+
+    .code-note h3 {
+      font-size: 0.875rem;
+      color: var(--coral);
+      margin-bottom: 12px;
+      font-weight: 600;
+    }
+
+    .code-note p {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      line-height: 1.7;
+    }
+
+    .code-note code {
+      background: #1a1a1a;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.8rem;
+      color: var(--teal);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="section-intro">
+    <h2>See what's happening nearby</h2>
+    <p>Drop this component into your hero section to replace the current neighborhood scroller</p>
+  </div>
+
+  <div class="map-section">
+    <!-- Dark map background (LA area tiles) -->
+    <div class="map-background"></div>
+    
+    <!-- Vignette overlay for polish -->
+    <div class="map-overlay"></div>
+
+    <!-- Wispy street grid lines -->
+    <div class="street-grid"></div>
+    <div class="street-diagonal"></div>
+    <div class="street-highway"></div>
+    <div class="street-highway-2"></div>
+
+    <!-- Subtle neighborhood labels -->
+    <div class="neighborhood-labels">
+      <span class="neighborhood silver-lake">Silver Lake</span>
+      <span class="neighborhood echo-park">Echo Park</span>
+      <span class="neighborhood dtla">DTLA</span>
+      <span class="neighborhood los-feliz">Los Feliz</span>
+      <span class="neighborhood koreatown">Koreatown</span>
+      <span class="neighborhood hollywood">Hollywood</span>
+      <span class="neighborhood weho">WeHo</span>
+    </div>
+
+    <!-- Current location indicator -->
+    <div class="current-location">
+      <div class="current-ring"></div>
+      <div class="current-dot"></div>
+      <span class="current-label">You</span>
+    </div>
+
+    <!-- Floating pins -->
+    <div class="map-pin pin-1">
+      <div class="pin-bubble">
+        <div class="pin-emoji coral">☕</div>
+        <div class="pin-info">
+          <div class="pin-title">Coffee & Coworking</div>
+          <div class="pin-meta">
+            <span class="pin-location">Silver Lake</span>
+            <span class="pin-distance">1.2 mi</span>
+          </div>
+        </div>
+        <div class="pin-avatars">
+          <div class="mini-avatar coral">J</div>
+          <div class="mini-avatar purple">M</div>
+          <div class="mini-avatar teal">K</div>
+        </div>
+      </div>
+      <div class="pin-stem"></div>
+      <div class="pin-dot"></div>
+    </div>
+
+    <div class="map-pin pin-2">
+      <div class="pin-bubble">
+        <div class="pin-emoji purple">🎮</div>
+        <div class="pin-info">
+          <div class="pin-title">Board Game Night</div>
+          <div class="pin-meta">
+            <span class="pin-location">Echo Park</span>
+            <span class="pin-distance">0.4 mi</span>
+          </div>
+        </div>
+        <div class="pin-avatars">
+          <div class="mini-avatar yellow">A</div>
+          <div class="mini-avatar pink">S</div>
+          <div class="mini-avatar gray">+3</div>
+        </div>
+      </div>
+      <div class="pin-stem"></div>
+      <div class="pin-dot"></div>
+    </div>
+
+    <div class="map-pin pin-3">
+      <div class="pin-bubble">
+        <div class="pin-emoji teal">🏀</div>
+        <div class="pin-info">
+          <div class="pin-title">Pickup Basketball</div>
+          <div class="pin-meta">
+            <span class="pin-location">Koreatown</span>
+            <span class="pin-distance">1.8 mi</span>
+          </div>
+        </div>
+        <div class="pin-avatars">
+          <div class="mini-avatar teal">D</div>
+          <div class="mini-avatar coral">R</div>
+        </div>
+      </div>
+      <div class="pin-stem"></div>
+      <div class="pin-dot"></div>
+    </div>
+
+    <div class="map-pin pin-4">
+      <div class="pin-bubble">
+        <div class="pin-emoji yellow">👶</div>
+        <div class="pin-info">
+          <div class="pin-title">Stroller Walk</div>
+          <div class="pin-meta">
+            <span class="pin-location">Los Feliz</span>
+            <span class="pin-distance">1.5 mi</span>
+          </div>
+        </div>
+        <div class="pin-avatars">
+          <div class="mini-avatar yellow">E</div>
+          <div class="mini-avatar purple">L</div>
+          <div class="mini-avatar coral">T</div>
+          <div class="mini-avatar gray">+2</div>
+        </div>
+      </div>
+      <div class="pin-stem"></div>
+      <div class="pin-dot"></div>
+    </div>
+
+    <div class="map-pin pin-5">
+      <div class="pin-bubble">
+        <div class="pin-emoji pink">🎬</div>
+        <div class="pin-info">
+          <div class="pin-title">Movie @ Alamo</div>
+          <div class="pin-meta">
+            <span class="pin-location">DTLA</span>
+            <span class="pin-distance">2.3 mi</span>
+          </div>
+        </div>
+        <div class="pin-avatars">
+          <div class="mini-avatar pink">N</div>
+          <div class="mini-avatar teal">C</div>
+        </div>
+      </div>
+      <div class="pin-stem"></div>
+      <div class="pin-dot"></div>
+    </div>
+
+  </div>
+
+  <div class="code-note">
+    <h3>Implementation Notes</h3>
+    <p>
+      This uses <code>Stadia Maps</code> dark tiles (free tier, no API key for low traffic). 
+      The map is static tiles stitched together, centered roughly on Silver Lake / Echo Park area. 
+      For production, you could swap in <code>Mapbox</code> or <code>Google Maps</code> with a dark style for smoother zooming/panning. 
+      The pins use pure CSS animations—no JS required. Just drop the <code>.map-section</code> div into your page and adjust pin positions as needed.
+    </p>
+  </div>
+
+</body>
+</html>

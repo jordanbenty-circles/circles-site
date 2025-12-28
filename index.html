@@ -404,6 +404,27 @@
         .neighborhood.hollywood { top: 18%; left: 15%; }
         .neighborhood.weho { top: 32%; left: 5%; }
 
+        /* Map landmark icons */
+        .map-landmarks {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+        }
+
+        .landmark-icon {
+            position: absolute;
+            font-size: 1.5rem;
+            opacity: 0.4;
+            filter: grayscale(0.3);
+        }
+
+        .landmark-icon.hollywood-sign { top: 22%; left: 18%; font-size: 1.2rem; }
+        .landmark-icon.palm-tree-1 { top: 36%; left: 8%; }
+        .landmark-icon.palm-tree-2 { top: 44%; left: 10%; font-size: 1.3rem; }
+        .landmark-icon.dtla-building { top: 62%; left: 78%; font-size: 1.8rem; }
+        .landmark-icon.echo-lake { top: 32%; left: 56%; font-size: 1.3rem; }
+        .landmark-icon.ktown-food { top: 74%; left: 12%; }
+
         /* ======================== */
         /* FLOATING PINS            */
         /* ======================== */
@@ -812,6 +833,16 @@
                         <span class="neighborhood koreatown">Koreatown</span>
                         <span class="neighborhood hollywood">Hollywood</span>
                         <span class="neighborhood weho">WeHo</span>
+                    </div>
+
+                    <!-- Map landmark icons -->
+                    <div class="map-landmarks">
+                        <span class="landmark-icon hollywood-sign">🎬</span>
+                        <span class="landmark-icon palm-tree-1">🌴</span>
+                        <span class="landmark-icon palm-tree-2">🌴</span>
+                        <span class="landmark-icon dtla-building">🏢</span>
+                        <span class="landmark-icon echo-lake">🦆</span>
+                        <span class="landmark-icon ktown-food">🍜</span>
                     </div>
 
                     <!-- Current location indicator -->
