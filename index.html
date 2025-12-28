@@ -160,41 +160,33 @@
         }
 
         /* About Section */
-        .about {
-            padding: 80px 0;
-        }
-
-        .about-content {
-            background-color: var(--surface);
-            border-radius: 24px;
-            padding: 60px 40px;
-            text-align: center;
-        }
-
-        .about h2 {
-            font-size: clamp(28px, 5vw, 40px);
-            font-weight: 700;
-            margin-bottom: 24px;
-        }
-
-        .about p {
-            font-size: 18px;
-            color: var(--text-secondary);
-            max-width: 600px;
-            margin: 0 auto;
-            line-height: 1.7;
-        }
-
         /* How It Works */
         .how-it-works {
             padding: 80px 0;
         }
 
-        .how-it-works h2 {
-            font-size: clamp(28px, 5vw, 40px);
+        .how-it-works-intro {
+            max-width: 800px;
+            margin: 0 auto 60px;
+            text-align: left;
+        }
+
+        .how-it-works-intro h2 {
+            font-size: clamp(32px, 5vw, 48px);
             font-weight: 700;
-            text-align: center;
-            margin-bottom: 60px;
+            margin-bottom: 24px;
+            line-height: 1.2;
+        }
+
+        .how-it-works-intro p {
+            font-size: 18px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 12px;
+        }
+
+        .how-it-works-intro p:last-child {
+            margin-bottom: 0;
         }
 
         .steps {
@@ -706,16 +698,17 @@
                 font-size: 18px;
             }
 
-            .about-content {
-                padding: 40px 24px;
-            }
-
             .how-it-works {
                 padding: 60px 0;
             }
 
-            .how-it-works h2 {
+            .how-it-works-intro {
+                text-align: center;
                 margin-bottom: 40px;
+            }
+
+            .how-it-works-intro h2 {
+                margin-bottom: 20px;
             }
 
             .steps {
@@ -1030,33 +1023,28 @@
             </div>
         </section>
 
-        <section class="about">
-            <div class="container">
-                <div class="about-content">
-                    <h2>Your neighborhood is more interesting than your feed.</h2>
-                    <p>Circles is for people who want to do stuff—not just watch other people do stuff. Find hangouts near you, join a crew, or host your own thing. It's lowkey, it's local, it's real.</p>
-                </div>
-            </div>
-        </section>
-
         <section class="how-it-works">
             <div class="container">
-                <h2>This isn't another social network. It's the exit.</h2>
+                <div class="how-it-works-intro">
+                    <h2>Your neighborhood is more interesting than your feed</h2>
+                    <p>Circles is for people who want to do stuff—not just watch other people do stuff.</p>
+                    <p>Find hangouts near you. It's lowkey, it's local, it's real.</p>
+                </div>
                 <div class="steps">
                     <div class="step">
                         <div class="step-icon">🔍</div>
                         <h3>Discover</h3>
-                        <p>Browse what's happening around you</p>
+                        <p>Browse your area</p>
                     </div>
                     <div class="step">
                         <div class="step-icon">🤝</div>
                         <h3>Join</h3>
-                        <p>Request to join circles that vibe with you</p>
+                        <p>Request to join curated vibe circles</p>
                     </div>
                     <div class="step">
                         <div class="step-icon">🚀</div>
-                        <h3>Show Up</h3>
-                        <p>Get off the app and go do something</p>
+                        <h3>Show up</h3>
+                        <p>Get off the app and hang</p>
                     </div>
                 </div>
             </div>
