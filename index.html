@@ -77,6 +77,57 @@
             gap: 32px;
         }
 
+        .mobile-menu-toggle {
+            display: none;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .mobile-menu-toggle:hover {
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .mobile-menu-toggle svg {
+            width: 20px;
+            height: 20px;
+            fill: var(--text-primary);
+        }
+
+        .mobile-nav-dropdown {
+            display: none;
+            position: absolute;
+            top: 60px;
+            right: 20px;
+            background: #1A1A1A;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 8px;
+            min-width: 200px;
+            z-index: 1000;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+        }
+
+        .mobile-nav-dropdown.active {
+            display: block;
+        }
+
+        .mobile-nav-dropdown .nav-tab {
+            display: block;
+            padding: 12px 16px;
+            margin-bottom: 4px;
+        }
+
+        .mobile-nav-dropdown .nav-tab:last-child {
+            margin-bottom: 0;
+        }
+
         .nav-tabs {
             display: flex;
             gap: 8px;
@@ -747,6 +798,10 @@
                 display: none;
             }
 
+            .mobile-menu-toggle {
+                display: flex;
+            }
+
             .header-cta {
                 display: none;
             }
@@ -842,6 +897,15 @@
                 </div>
                 <div class="header-nav">
                     <div class="nav-tabs">
+                        <a href="#what-is-circles" class="nav-tab active">What is Circles?</a>
+                        <a href="#how-it-works" class="nav-tab">How it works</a>
+                    </div>
+                    <button class="mobile-menu-toggle" aria-label="Menu">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M3 12h18M3 6h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                    </button>
+                    <div class="mobile-nav-dropdown">
                         <a href="#what-is-circles" class="nav-tab active">What is Circles?</a>
                         <a href="#how-it-works" class="nav-tab">How it works</a>
                     </div>
@@ -1074,6 +1138,22 @@
         document.addEventListener('DOMContentLoaded', function() {
             const navTabs = document.querySelectorAll('.nav-tab');
             const sections = document.querySelectorAll('section[id]');
+            const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+            const mobileNavDropdown = document.querySelector('.mobile-nav-dropdown');
+
+            // Handle mobile menu toggle
+            if (mobileMenuToggle && mobileNavDropdown) {
+                mobileMenuToggle.addEventListener('click', function() {
+                    mobileNavDropdown.classList.toggle('active');
+                });
+
+                // Close dropdown when clicking outside
+                document.addEventListener('click', function(e) {
+                    if (!mobileMenuToggle.contains(e.target) && !mobileNavDropdown.contains(e.target)) {
+                        mobileNavDropdown.classList.remove('active');
+                    }
+                });
+            }
 
             // Handle tab clicks
             navTabs.forEach(tab => {
@@ -1083,9 +1163,14 @@
                     const targetSection = document.getElementById(targetId);
 
                     if (targetSection) {
-                        // Update active tab
+                        // Update active tab in both desktop and mobile menus
                         navTabs.forEach(t => t.classList.remove('active'));
-                        this.classList.add('active');
+                        document.querySelectorAll(`a[href="#${targetId}"]`).forEach(t => t.classList.add('active'));
+
+                        // Close mobile dropdown
+                        if (mobileNavDropdown) {
+                            mobileNavDropdown.classList.remove('active');
+                        }
 
                         // Scroll to section
                         targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
