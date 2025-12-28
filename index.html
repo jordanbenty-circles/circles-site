@@ -163,38 +163,50 @@
 
         .steps {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 24px;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 32px;
+            max-width: 1100px;
+            margin: 0 auto;
         }
 
         .step {
-            background-color: var(--surface);
-            border-radius: 20px;
-            padding: 40px 32px;
+            background-color: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 24px;
+            padding: 48px 40px;
             text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .step:hover {
+            background-color: rgba(255, 255, 255, 0.05);
+            border-color: rgba(255, 255, 255, 0.12);
+            transform: translateY(-4px);
         }
 
         .step-icon {
-            width: 64px;
-            height: 64px;
-            background: var(--gradient-pink);
-            border-radius: 16px;
+            width: 80px;
+            height: 80px;
+            background-color: rgba(249, 95, 95, 0.1);
+            border-radius: 20px;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 24px;
-            font-size: 28px;
+            margin: 0 auto 28px;
+            font-size: 36px;
         }
 
         .step h3 {
-            font-size: 22px;
+            font-size: 24px;
             font-weight: 600;
-            margin-bottom: 12px;
+            margin-bottom: 16px;
+            color: var(--text-primary);
         }
 
         .step p {
             color: var(--text-secondary);
             font-size: 16px;
+            line-height: 1.6;
         }
 
         /* Final CTA */
