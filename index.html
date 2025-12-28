@@ -67,6 +67,42 @@
             color: var(--text-primary);
         }
 
+        .header-nav {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+        }
+
+        .nav-tabs {
+            display: flex;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 4px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-tab {
+            padding: 8px 16px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-secondary);
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+        .nav-tab:hover {
+            color: var(--text-primary);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .nav-tab.active {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-primary);
+        }
+
         .header-cta {
             background-color: var(--primary);
             color: white;
@@ -710,6 +746,10 @@
                 width: 180px;
             }
 
+            .nav-tabs {
+                display: none;
+            }
+
             .header-cta {
                 display: none;
             }
@@ -803,7 +843,13 @@
                     </svg>
                     <span class="logo-text">Circles</span>
                 </div>
-                <a href="#signup" class="header-cta">Get Early Access</a>
+                <div class="header-nav">
+                    <div class="nav-tabs">
+                        <a href="#what-is-circles" class="nav-tab active">What is Circles?</a>
+                        <a href="#how-it-works" class="nav-tab">How it works</a>
+                    </div>
+                    <a href="#signup" class="header-cta">Get Early Access</a>
+                </div>
             </div>
         </div>
     </header>
