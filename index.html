@@ -25,6 +25,10 @@
             --gradient-pink: linear-gradient(135deg, #8B5A7C 0%, #C96B98 100%);
         }
 
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             background-color: var(--background);
@@ -848,7 +852,7 @@
     </header>
 
     <main>
-        <section class="hero">
+        <section class="hero" id="what-is-circles">
             <div class="container">
                 <h1>Find your crew.<br><span>See what's happening.</span></h1>
                 <p class="hero-subtitle">A social app designed to be closed and help you find your people.</p>
@@ -1023,7 +1027,7 @@
             </div>
         </section>
 
-        <section class="how-it-works">
+        <section class="how-it-works" id="how-it-works">
             <div class="container">
                 <div class="how-it-works-intro">
                     <h2>Your neighborhood is more interesting than your feed</h2>
@@ -1064,5 +1068,51 @@
             <p>© 2025 Circles · Coming soon to iOS</p>
         </div>
     </footer>
+
+    <script>
+        // Smooth scroll and active tab management
+        document.addEventListener('DOMContentLoaded', function() {
+            const navTabs = document.querySelectorAll('.nav-tab');
+            const sections = document.querySelectorAll('section[id]');
+
+            // Handle tab clicks
+            navTabs.forEach(tab => {
+                tab.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href').substring(1);
+                    const targetSection = document.getElementById(targetId);
+
+                    if (targetSection) {
+                        // Update active tab
+                        navTabs.forEach(t => t.classList.remove('active'));
+                        this.classList.add('active');
+
+                        // Scroll to section
+                        targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                });
+            });
+
+            // Update active tab on scroll
+            window.addEventListener('scroll', function() {
+                let current = '';
+
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.clientHeight;
+                    if (pageYOffset >= sectionTop - 200) {
+                        current = section.getAttribute('id');
+                    }
+                });
+
+                navTabs.forEach(tab => {
+                    tab.classList.remove('active');
+                    if (tab.getAttribute('href') === '#' + current) {
+                        tab.classList.add('active');
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>
