@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terms of Service - Crew</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #F95F5F;
+            --primary-hover: #ff7070;
+            --background: #000000;
+            --surface: #1C1C1E;
+            --surface-light: #2C2C2E;
+            --text-primary: #FFFFFF;
+            --text-secondary: #8E8E93;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--background);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Header */
+        header {
+            padding: 24px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 44px;
+            height: 44px;
+        }
+
+        .logo-text {
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        /* Terms Content */
+        .terms-content {
+            padding: 60px 0 100px;
+        }
+
+        .terms-content h1 {
+            font-size: clamp(32px, 5vw, 48px);
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .effective-date {
+            color: var(--text-secondary);
+            font-size: 16px;
+            margin-bottom: 40px;
+        }
+
+        .terms-content p.intro {
+            font-size: 18px;
+            color: var(--text-secondary);
+            margin-bottom: 48px;
+            line-height: 1.7;
+        }
+
+        .terms-content h2 {
+            font-size: 24px;
+            font-weight: 600;
+            margin-top: 48px;
+            margin-bottom: 20px;
+            color: var(--text-primary);
+        }
+
+        .terms-content h3 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-top: 28px;
+            margin-bottom: 12px;
+            color: var(--text-primary);
+        }
+
+        .terms-content p {
+            color: var(--text-secondary);
+            margin-bottom: 16px;
+            line-height: 1.7;
+        }
+
+        .terms-content ul {
+            color: var(--text-secondary);
+            margin-bottom: 16px;
+            padding-left: 24px;
+            line-height: 1.8;
+        }
+
+        .terms-content li {
+            margin-bottom: 8px;
+        }
+
+        .terms-content strong {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        .terms-content a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .terms-content a:hover {
+            text-decoration: underline;
+        }
+
+        .divider {
+            height: 1px;
+            background: rgba(255, 255, 255, 0.1);
+            margin: 48px 0;
+        }
+
+        .legal-caps {
+            text-transform: uppercase;
+            font-size: 14px;
+            line-height: 1.8;
+        }
+
+        /* Footer */
+        footer {
+            padding: 40px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-content {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .footer-content p {
+            color: var(--text-secondary);
+            font-size: 14px;
+            margin: 0;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 24px;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.2s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--text-primary);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 20px;
+            }
+
+            .terms-content {
+                padding: 40px 0 80px;
+            }
+
+            .terms-content h1 {
+                font-size: 32px;
+            }
+
+            .terms-content h2 {
+                font-size: 20px;
+                margin-top: 36px;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .footer-links {
+                flex-direction: column;
+                gap: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <a href="index.html" class="logo">
+                <img src="assets/logo.png" alt="Crew" class="logo-icon">
+                <span class="logo-text">Crew</span>
+            </a>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <div class="terms-content">
+                <h1>Terms of Service</h1>
+                <p class="effective-date"><strong>Effective Date: January 8, 2026</strong></p>
+                <p class="intro">Please read these Terms of Service ("Terms") carefully before using the Crew mobile application ("Service") operated by Crew ("we," "us," or "our"). By accessing or using the Service, you agree to be bound by these Terms.</p>
+
+                <div class="divider"></div>
+
+                <h2>1. Eligibility</h2>
+                <p>To use Crew, you must:</p>
+                <ul>
+                    <li>Be at least 18 years of age</li>
+                    <li>Have the legal capacity to enter into a binding agreement</li>
+                    <li>Not be prohibited from using the Service under applicable law</li>
+                    <li>Not have been previously banned from the Service</li>
+                </ul>
+                <p>By using Crew, you represent and warrant that you meet all eligibility requirements.</p>
+
+                <div class="divider"></div>
+
+                <h2>2. Account Registration</h2>
+                <p>When you create an account, you agree to:</p>
+                <ul>
+                    <li>Provide accurate, current, and complete information</li>
+                    <li>Maintain and promptly update your account information</li>
+                    <li>Keep your password secure and confidential</li>
+                    <li>Accept responsibility for all activities under your account</li>
+                    <li>Notify us immediately of any unauthorized access</li>
+                </ul>
+                <p>You may not transfer your account to anyone else without our written permission.</p>
+
+                <div class="divider"></div>
+
+                <h2>3. Description of Service</h2>
+                <p>Crew is a location-based social networking platform that enables users to:</p>
+                <ul>
+                    <li>Discover local groups ("Crews") based on interests and proximity</li>
+                    <li>Create and host Crews for others to join</li>
+                    <li>Communicate with other members through in-app messaging</li>
+                    <li>Manage crew membership and events</li>
+                </ul>
+                <p>We reserve the right to modify, suspend, or discontinue any aspect of the Service at any time without prior notice.</p>
+
+                <div class="divider"></div>
+
+                <h2>4. User Conduct and Community Guidelines</h2>
+                <p>You agree to use Crew responsibly and not to:</p>
+
+                <h3>Harmful Behavior</h3>
+                <ul>
+                    <li>Harass, bully, intimidate, or threaten other users</li>
+                    <li>Engage in hate speech or discrimination</li>
+                    <li>Stalk or invade the privacy of others</li>
+                    <li>Incite violence or promote dangerous activities</li>
+                </ul>
+
+                <h3>Prohibited Content</h3>
+                <ul>
+                    <li>Post illegal, obscene, or sexually explicit content</li>
+                    <li>Share content that infringes intellectual property rights</li>
+                    <li>Distribute malware, viruses, or harmful code</li>
+                    <li>Post misleading or fraudulent information</li>
+                </ul>
+
+                <h3>Platform Abuse</h3>
+                <ul>
+                    <li>Create fake accounts or impersonate others</li>
+                    <li>Spam, send unsolicited messages, or advertise without permission</li>
+                    <li>Attempt to access accounts or data belonging to others</li>
+                    <li>Interfere with or disrupt the Service</li>
+                    <li>Use automated systems to access the Service</li>
+                </ul>
+
+                <div class="divider"></div>
+
+                <h2>5. User Content</h2>
+                <p>"User Content" includes all content you post, upload, or share through Crew, including messages, photos, crew descriptions, and profile information.</p>
+                <p>You retain ownership of your User Content. By posting content, you grant us a non-exclusive, worldwide, royalty-free, sublicensable license to use, copy, modify, display, and distribute your content in connection with operating and improving the Service.</p>
+                <p>You represent that you have all necessary rights to post your content and that your content does not violate any third party's rights or these Terms.</p>
+                <p>We may remove any content that violates these Terms or that we find objectionable, without prior notice.</p>
+
+                <div class="divider"></div>
+
+                <h2>6. Location Services</h2>
+                <p>Crew uses location data to provide core functionality:</p>
+                <ul>
+                    <li>Discovering nearby crews based on your location</li>
+                    <li>Displaying distances to crews</li>
+                    <li>Enabling location-based search within your selected radius</li>
+                </ul>
+                <p>You can control location permissions through your device settings. Disabling location services will limit your ability to discover nearby crews.</p>
+
+                <div class="divider"></div>
+
+                <h2>7. Safety and Reporting</h2>
+                <p>Your safety matters to us. Crew provides tools to:</p>
+                <ul>
+                    <li>Block users who engage in unwanted behavior</li>
+                    <li>Report users, messages, or crews that violate our guidelines</li>
+                    <li>Control who can contact you</li>
+                </ul>
+                <p>We review reports and may take action including warning, suspending, or permanently banning users who violate these Terms. We are not obligated to disclose the reasons for any action taken.</p>
+
+                <div class="divider"></div>
+
+                <h2>8. Intellectual Property</h2>
+                <p>The Service, including its design, features, and content (excluding User Content), is owned by Crew and protected by copyright, trademark, and other intellectual property laws.</p>
+                <p>You may not copy, modify, distribute, sell, or lease any part of the Service, nor may you reverse engineer or attempt to extract the source code, unless permitted by law or with our written consent.</p>
+
+                <div class="divider"></div>
+
+                <h2>9. Third-Party Services</h2>
+                <p>Crew uses third-party services including Firebase (Google), Google Sign-In, and Apple Sign-In. Your use of these services is subject to their respective terms and privacy policies. We are not responsible for third-party services or their practices.</p>
+
+                <div class="divider"></div>
+
+                <h2>10. Termination</h2>
+                <p>You may delete your account at any time through the Settings menu in the app.</p>
+                <p>We may suspend or terminate your account at any time, with or without cause, including if we reasonably believe:</p>
+                <ul>
+                    <li>You have violated these Terms</li>
+                    <li>Your conduct may harm other users or the Service</li>
+                    <li>Your account poses a security risk</li>
+                </ul>
+                <p>Upon termination, your right to use the Service will immediately cease, and we may delete your account and content.</p>
+
+                <div class="divider"></div>
+
+                <h2>11. Disclaimers</h2>
+                <p class="legal-caps">THE SERVICE IS PROVIDED "AS IS" AND "AS AVAILABLE" WITHOUT WARRANTIES OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NON-INFRINGEMENT.</p>
+                <p class="legal-caps">WE DO NOT WARRANT THAT:</p>
+                <ul class="legal-caps">
+                    <li>The Service will be uninterrupted, secure, or error-free</li>
+                    <li>Any defects will be corrected</li>
+                    <li>The Service is free of viruses or harmful components</li>
+                    <li>The results of using the Service will meet your requirements</li>
+                </ul>
+                <p class="legal-caps">YOU USE THE SERVICE AT YOUR OWN RISK. WE ARE NOT RESPONSIBLE FOR THE CONDUCT OF ANY USER, WHETHER ONLINE OR OFFLINE.</p>
+
+                <div class="divider"></div>
+
+                <h2>12. Limitation of Liability</h2>
+                <p class="legal-caps">TO THE MAXIMUM EXTENT PERMITTED BY LAW, CREW AND ITS OFFICERS, DIRECTORS, EMPLOYEES, AND AGENTS SHALL NOT BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES, INCLUDING BUT NOT LIMITED TO LOSS OF PROFITS, DATA, USE, GOODWILL, OR OTHER INTANGIBLE LOSSES, ARISING FROM:</p>
+                <ul class="legal-caps">
+                    <li>Your use or inability to use the Service</li>
+                    <li>Any conduct or content of other users</li>
+                    <li>Unauthorized access to your data</li>
+                    <li>Any other matter relating to the Service</li>
+                </ul>
+                <p class="legal-caps">OUR TOTAL LIABILITY SHALL NOT EXCEED THE AMOUNT YOU PAID US IN THE PAST TWELVE MONTHS, OR $100, WHICHEVER IS GREATER.</p>
+
+                <div class="divider"></div>
+
+                <h2>13. Indemnification</h2>
+                <p>You agree to indemnify, defend, and hold harmless Crew and its officers, directors, employees, and agents from any claims, damages, losses, liabilities, costs, and expenses (including attorney's fees) arising from:</p>
+                <ul>
+                    <li>Your use of the Service</li>
+                    <li>Your User Content</li>
+                    <li>Your violation of these Terms</li>
+                    <li>Your violation of any rights of another party</li>
+                </ul>
+
+                <div class="divider"></div>
+
+                <h2>14. Dispute Resolution</h2>
+                <p>Any disputes arising from these Terms or your use of the Service shall be governed by the laws of the State of California, without regard to conflict of law principles.</p>
+                <p>You agree to resolve any disputes through informal negotiation first. If a dispute cannot be resolved informally, you agree to submit to the exclusive jurisdiction of the courts located in California.</p>
+
+                <div class="divider"></div>
+
+                <h2>15. Changes to Terms</h2>
+                <p>We may modify these Terms at any time. We will notify you of material changes by posting the updated Terms in the app and updating the "Effective Date" above.</p>
+                <p>Your continued use of the Service after changes become effective constitutes acceptance of the revised Terms. If you do not agree to the modified Terms, you must stop using the Service.</p>
+
+                <div class="divider"></div>
+
+                <h2>16. General Provisions</h2>
+                <ul>
+                    <li><strong>Entire Agreement:</strong> These Terms constitute the entire agreement between you and Crew regarding the Service.</li>
+                    <li><strong>Severability:</strong> If any provision is found unenforceable, the remaining provisions will continue in effect.</li>
+                    <li><strong>Waiver:</strong> Our failure to enforce any right does not waive that right.</li>
+                    <li><strong>Assignment:</strong> You may not assign these Terms without our consent. We may assign our rights freely.</li>
+                </ul>
+
+                <div class="divider"></div>
+
+                <h2>17. Contact Us</h2>
+                <p>If you have questions about these Terms of Service, please contact us:</p>
+                <p><strong>Email:</strong> <a href="mailto:joincrewapp@gmail.com">joincrewapp@gmail.com</a></p>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2025 Crew &middot; Coming soon to iOS</p>
+            <div class="footer-links">
+                <a href="privacy.html">Privacy Policy</a>
+                <a href="terms.html">Terms of Service</a>
+                <a href="index.html">Home</a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
